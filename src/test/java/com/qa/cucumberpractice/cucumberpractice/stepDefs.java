@@ -20,7 +20,7 @@ import cucumber.api.java.en.When;
 public class stepDefs {
 	
 	WebDriver driver;
-	String url;
+	String url = "ft";
 	public ExtentReports report;
 	public ExtentTest test;
 
@@ -28,7 +28,7 @@ public class stepDefs {
 	public void setup(){
 		report = new ExtentReports("C:\\Users\\Admin\\Desktop\\AutomationReports\\GoogleSearch.html", true); 
 		test = report.startTest("Verify accordion open"); 
-		test.log(LogStatus.INFO, "Started");
+		test.log(LogStatus.INFO, "Started the driver");
 		System.setProperty("webdriver.chrome.driver", "C:/Development/web_driver/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
@@ -37,6 +37,7 @@ public class stepDefs {
 	@Given("^I go to www\\.google\\.com$")
 	public void i_go_to_www_google_com() {
 	    // Write code here that turns the phrase above into concrete actions
+		test.log(LogStatus.INFO, "Went to the web page");
 		driver.get("https://www.google.com/");
 	}
 
@@ -50,7 +51,18 @@ public class stepDefs {
 	@Then("^I am taken to a list of data for that search$")
 	public void i_am_taken_to_a_list_of_data_for_that_search()  {
 	    // Write code here that turns the phrase above into concrete actions
-		assertTrue(!url.equals(driver.getCurrentUrl()));
+		
+		//test.flush();
+		
+		test.log(LogStatus.PASS, "Started the driver");
+		
+		report.endTest(test);		
+		
+		report.flush();
+		
+		assertEquals("Dogs", driver.getCurrentUrl());
+		
+		//assertTrue(url.equals(driver.getCurrentUrl()));
 	}
 	@After
 	public void tearDown() throws InterruptedException {
